@@ -3,6 +3,8 @@
 // @description  Automatically replaces copied website page urls with a randomly choosen embedder link for Discord
 // @version      1.0.0
 // @author       RatinFX (https://github.com/RatinFX)
+// @namespace    https://github.com/RatinFX/random-scripts
+// @supportURL   https://github.com/RatinFX/random-scripts
 // @match        *://twitter.com/*
 // @match        *://*.x.com/*
 // @match        *://*.reddit.com/*
@@ -92,7 +94,7 @@
    * Remove tracking data from the link, e.g.:
    * - X/Twitter: ?s=20;
    * - Reddit: ?utm_source=share &utm_medium=web3x &utm_name=web3xcss &utm_term=1 &utm_content=share_button;
-   * - Bilibili: ?share_source=copy_web &t=60 - ?spm_id_from=000.1111.tianma.1-1-1.click - ?spm_id_from=000.111.search-card.all.click;
+   * - Bilibili: ?share_source=copy_web &t=60 | ?spm_id_from=000.1111.tianma.1-1-1.click | ?spm_id_from=000.111.search-card.all.click;
    * - Instagram: ?utm_source=ig_web_copy_link &igsh=abcdefghijklmnopqrst
    * - Facebook: ?fbid=012345678910111213 &set=pcb.01234567891011121
    */
