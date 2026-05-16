@@ -106,7 +106,7 @@
       const params = url.searchParams;
       const allowed = rule?.allowedParams ? new Set(rule.allowedParams) : null;
 
-      for (const [key] of params.entries()) {
+      for (const [key] of [...params.entries()]) {
         if (!allowed || !allowed.has(key)) {
           params.delete(key);
         }
