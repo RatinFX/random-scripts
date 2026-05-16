@@ -17,6 +17,7 @@
 (function() {
   'use strict';
 
+  /** Select a random link from the list */
   function getRandomDomain(protocol, path, embedders) {
     const domain = embedders[Math.floor(Math.random() * embedders.length)];
     console.log("[URL copy script] - domain:", domain);
@@ -24,6 +25,7 @@
     return url;
   }
 
+  /** Create a static regex parser for the given site */
   function createRegex(link) {
     const regex = new RegExp(`(https?:\\/\\/(?:www\\.)?)(?:${link})\\.com(\\/.*)?`, 'i');
     console.log("[URL copy script] - createRegex | regex:", regex);
@@ -152,7 +154,7 @@
   }
 
   /**
-   * Overwrite clipboard
+   * Overwrite clipboard section
    */
 
   const originalWriteText = navigator.clipboard?.writeText?.bind(navigator.clipboard);
