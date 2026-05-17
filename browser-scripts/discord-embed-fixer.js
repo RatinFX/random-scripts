@@ -105,8 +105,9 @@
       const url = new URL(urlString);
       const params = url.searchParams;
       const allowed = rule?.allowedParams ? new Set(rule.allowedParams) : null;
+      const keys = Array.from(params.keys());
 
-      for (const [key] of [...params.entries()]) {
+      for (const key of keys) {
         if (!allowed || !allowed.has(key)) {
           params.delete(key);
         }
