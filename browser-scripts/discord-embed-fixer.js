@@ -27,7 +27,7 @@
 
   /** Create a static regex parser for the given site */
   function createRegex(link) {
-    const regex = new RegExp(`(https?:\\/\\/(?:www\\.)?)(?:${link})\\.com(\\/.*)?`, 'i');
+    const regex = new RegExp(`(https?://)(?:www\\.)?(?:${link})\\.com(/.*)?`, 'i');
     console.log("[URL copy script] - createRegex | regex:", regex);
     return regex;
   }
