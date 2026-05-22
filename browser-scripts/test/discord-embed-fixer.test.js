@@ -62,16 +62,25 @@ const siteRules = [
 function stripTracking(urlString, rule) {
   try {
     const url = new URL(urlString);
-    const params = url.searchParams;
     const allowed = rule?.allowedParams ? new Set(rule.allowedParams) : null;
-    const keys = Array.from(params.keys());
-    for (const key of keys) {
-      if (!allowed || !allowed.has(key)) {
-        params.delete(key);
+    const rawSearch = url.search.replace(/^\?/, '');
+    if (!rawSearch) {
+      return url.origin + url.pathname + url.hash;
+    }
+    const kept = [];
+    for (const pair of rawSearch.split('&')) {
+      if (!pair) continue;
+      const eqIndex = pair.indexOf('=');
+      const rawKey = eqIndex >= 0
+        ? pair.slice(0, eqIndex)
+        : pair;
+      const key = decodeURIComponent(rawKey);
+      if (allowed && allowed.has(key)) {
+        kept.push(pair);
       }
     }
-    const query = params.toString();
-    return url.origin + url.pathname + (query ? '?' + query : '') + url.hash;
+    const query = kept.length ? '?' + kept.join('&') : '';
+    return (url.origin + url.pathname + query + url.hash);
   } catch (ex) {
     return urlString;
   }

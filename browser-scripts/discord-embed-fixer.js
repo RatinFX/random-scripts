@@ -14,7 +14,7 @@
 // @grant        none
 // @run-at       document-start
 // ==/UserScript==
-(function() {
+(function () {
   'use strict';
 
   /** Select a random link from the list */
@@ -219,7 +219,7 @@
   if (navigator.clipboard && navigator.clipboard.writeText) {
     console.log("[URL copy script] - clipboard writeText")
 
-    navigator.clipboard.writeText = async function(text) {
+    navigator.clipboard.writeText = async function (text) {
       const newURL = processLink(text);
       return originalWriteText(newURL || text);
     };
