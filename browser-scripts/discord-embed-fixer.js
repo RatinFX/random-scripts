@@ -103,22 +103,46 @@
   function stripTracking(urlString, rule) {
     try {
       const url = new URL(urlString);
-      const params = url.searchParams;
-      const allowed = rule?.allowedParams ? new Set(rule.allowedParams) : null;
-      const keys = Array.from(params.keys());
+      const allowed = rule?.allowedParams
+        ? new Set(rule.allowedParams)
+        : null;
 
-      for (const key of keys) {
-        if (!allowed || !allowed.has(key)) {
-          params.delete(key);
+      // manually parse query string
+
+      // remove leading '?'
+      const rawSearch = url.search.replace(/^\?/, '');
+
+      // no query params
+      if (!rawSearch) {
+        return url.origin + url.pathname + url.hash;
+      }
+
+      const kept = [];
+
+      for (const pair of rawSearch.split('&')) {
+        if (!pair) continue;
+
+        const eqIndex = pair.indexOf('=');
+
+        const rawKey = eqIndex >= 0
+          ? pair.slice(0, eqIndex)
+          : pair;
+
+        const key = decodeURIComponent(rawKey);
+
+        if (allowed && allowed.has(key)) {
+          kept.push(pair);
         }
       }
 
-      const query = params.toString();
+      const query = kept.length
+        ? '?' + kept.join('&')
+        : '';
 
       return (
         url.origin +
         url.pathname +
-        (query ? '?' + query : '') +
+        query +
         url.hash
       );
     } catch (ex) {
